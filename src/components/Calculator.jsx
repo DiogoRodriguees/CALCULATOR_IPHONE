@@ -17,6 +17,10 @@ export default function Calculator() {
     function mudaSinal() {
         setNumero(numero * (-1));
     }
+
+    function mudaParaPorcentagem() {
+        setNumero(numero / 100);
+    }
     return (
         <div>
             <Box m={5}/>
@@ -27,7 +31,7 @@ export default function Calculator() {
 
                     <button onClick={clear}>AC</button>
                     <button onClick={mudaSinal}>+/-</button>
-                    <button>%</button>
+                    <button onClick={mudaParaPorcentagem}>%</button>
                     <button className="buttons-orange">/</button>
 
                     <button className="buttons-gray" onClick={inputNumero} value={7}>7</button>
