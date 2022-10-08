@@ -32,10 +32,7 @@ export default function Calculator() {
         execFunction();
     }
 
-    const clear = () => {
-        setnumber(0);
-        setOldNumber(0);
-    }
+    const clear = () => setnumber(0);
 
     const mudaSinal = () => setnumber(number * (-1));
     
