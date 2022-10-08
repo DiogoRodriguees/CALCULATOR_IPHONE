@@ -4,55 +4,75 @@ import Container from "@mui/material/Container";
 import { Box } from "@mui/system";
 
 export default function Calculator() {
-    const [numero, setNumero] = useState(0);
+    const [number, setnumber] = useState(0);
+    const [oldNumber, setOldNumber] = useState(0);
+    const [operator, setOperator] = useState(0);
 
-    function inputNumero(valor) {
-        setNumero(numero + valor.target.value);
+    const receiveNumber = (valor) => {
+        var newNumber = valor.target.value;
+        number === 0 ? setnumber(newNumber) : setnumber(number + newNumber);
     }
 
-    function clear() {
-        setNumero(0);
+    const  receiveOperator = (e) => {
+        var operatorinput = e.target.value
+        setOperator(operatorinput);
+        setOldNumber(number)
+        setnumber(0)
     }
 
-    function mudaSinal() {
-        setNumero(numero * (-1));
+    const operators = {
+        "+" : () => {setnumber(parseFloat(oldNumber) + parseFloat(number))},
+        "-" : () => {setnumber(parseFloat(oldNumber) - parseFloat(number))},
+        "*" : () => {setnumber(parseFloat(oldNumber) * parseFloat(number));},
+        "/" : () => {setnumber(parseFloat(oldNumber) / parseFloat(number));},
+    };
+
+    function makeCalculation() {
+        var execFunction = operators[operator];
+        execFunction();
     }
 
-    function mudaParaPorcentagem() {
-        setNumero(numero / 100);
+    const clear = () => {
+        setnumber(0);
+        setOldNumber(0);
     }
+
+    const mudaSinal = () => setnumber(number * (-1));
+    
+    const mudaParaPorcentagem = () => setnumber(number / 100); 
+
     return (
         <div>
             <Box m={5}/>
             <Container maxWidth="xs">
                 <div className="wrapper">
                     <Box m={12}/>
-                    <h1 className="resultado">{numero}</h1>
+                    <h1 className="resultado">{number}</h1>
 
                     <button onClick={clear}>AC</button>
                     <button onClick={mudaSinal}>+/-</button>
                     <button onClick={mudaParaPorcentagem}>%</button>
-                    <button className="buttons-orange">/</button>
+                    <button className="buttons-orange" onClick={receiveOperator} value="/">/</button>
 
-                    <button className="buttons-gray" onClick={inputNumero} value={7}>7</button>
-                    <button className="buttons-gray" onClick={inputNumero} value={8}>8</button>
-                    <button className="buttons-gray" onClick={inputNumero} value={9}>9</button>
-                    <button className="buttons-orange">*</button>
+                    <button className="buttons-gray" onClick={receiveNumber} value={7}>7</button>
+                    <button className="buttons-gray" onClick={receiveNumber} value={8}>8</button>
+                    <button className="buttons-gray" onClick={receiveNumber} value={9}>9</button>
+                    <button className="buttons-orange" onClick={receiveOperator} value="*">*</button>
 
-                    <button className="buttons-gray" onClick={inputNumero} value={4}>4</button>
-                    <button className="buttons-gray" onClick={inputNumero} value={5}>5</button>
-                    <button className="buttons-gray" onClick={inputNumero} value={6}>6</button>
-                    <button className="buttons-orange">-</button>
+                    <button className="buttons-gray" onClick={receiveNumber} value={4}>4</button>
+                    <button className="buttons-gray" onClick={receiveNumber} value={5}>5</button>
+                    <button className="buttons-gray" onClick={receiveNumber} value={6}>6</button>
+                    <button className="buttons-orange" onClick={receiveOperator} value="-">-</button>
 
-                    <button className="buttons-gray" onClick={inputNumero} value={1}>1</button>
-                    <button className="buttons-gray" onClick={inputNumero} value={2}>2</button>
-                    <button className="buttons-gray" onClick={inputNumero} value={3}>3</button>
-                    <button className="buttons-orange">+</button>
+                    <button className="buttons-gray" onClick={receiveNumber} value={1}>1</button>
+                    <button className="buttons-gray" onClick={receiveNumber} value={2}>2</button>
+                    <button className="buttons-gray" onClick={receiveNumber} value={3}>3</button>
+                    <button className="buttons-orange" onClick={receiveOperator} value="+">+</button>
 
-                    <button className="buttons-gray" onClick={inputNumero} value={0}>0</button>
-                    <button className="buttons-gray">,</button>
-                    <button className="buttons-gray"style={{ visibility: "hidden" }}>,</button>
-                    <button className="buttons-orange">=</button>
+                    <button className="buttons-gray" onClick={receiveNumber} value={0}>0</button>
+                    <button className="buttons-gray" onClick={receiveNumber} value=".">,</button>
+                    <button className="buttons-gray" style={{ visibility: "hidden" }}>.</button>
+                    <button className="buttons-orange" onClick={makeCalculation}>=</button>
                 </div>
             </Container>
         </div>
