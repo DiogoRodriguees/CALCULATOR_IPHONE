@@ -6,4 +6,4 @@
 
 
 <h1>🚀 SOBRE</h1>
-<h3> Projeto realizado para aprendizado da linguagem.</h3>
+<h3> Projeto realizado para aprendizado em ReactJS.</h3>
